@@ -1,0 +1,16 @@
+import { EditorProvider } from "./data/EditorRefContext"
+import Header from "./layout/Header"
+import EditorPage from "./pages/EditorPage"
+
+const App = () => {
+  return (
+    <EditorProvider>
+      <Header />
+      <main>
+        <EditorPage />
+      </main>
+    </EditorProvider>
+  )
+}
+
+export default App
