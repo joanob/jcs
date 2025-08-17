@@ -26,5 +26,5 @@ header {
 /* MAIN */
 
 main {
-  background-color: black;
+  overflow-y: scroll;
 }
