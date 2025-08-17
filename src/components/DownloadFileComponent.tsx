@@ -1,9 +1,11 @@
+import type { JSX } from "react"
+
 import { useEditorContext } from "@/data/EditorRefContext"
 
-const DownloadFileComponent = () => {
+const DownloadFileComponent = (): JSX.Element => {
   const editorRef = useEditorContext()
 
-  const onDownloadCodeClick = () => {
+  const onDownloadCodeClick = (): void => {
     if (editorRef === null) {
       return
     }

@@ -1,7 +1,9 @@
+import type { JSX } from "react"
+
 import DownloadFileComponent from "@/components/DownloadFileComponent"
 import LoadFileComponent from "@/components/LoadFileComponent"
 
-const Header = () => {
+const Header = (): JSX.Element => {
   return (
     <header>
       <div>Tabs</div>

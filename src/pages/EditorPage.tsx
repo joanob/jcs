@@ -1,7 +1,9 @@
-import { useEditorContext } from "@/data/EditorRefContext"
 import { Editor, type OnChange } from "@monaco-editor/react"
+import type { JSX } from "react"
 
-const EditorPage = () => {
+import { useEditorContext } from "@/data/EditorRefContext"
+
+const EditorPage = (): JSX.Element => {
   const editorRef = useEditorContext()
 
   const handleEditorChange: OnChange = (value, event) => {
