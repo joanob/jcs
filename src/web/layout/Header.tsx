@@ -1,7 +1,7 @@
 import type { JSX } from "react"
 
-import DownloadFileComponent from "@/components/DownloadFileComponent"
-import LoadFileComponent from "@/components/LoadFileComponent"
+import DownloadFileComponent from "@/web/components/DownloadFileComponent"
+import LoadFileComponent from "@/web/components/LoadFileComponent"
 
 const Header = (): JSX.Element => {
   return (

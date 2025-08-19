@@ -1,6 +1,6 @@
 import type { JSX } from "react"
 
-import { useEditorContext } from "@/data/EditorRefContext"
+import { useEditorContext } from "@/web/data/EditorRefContext"
 
 const DownloadFileComponent = (): JSX.Element => {
   const editorRef = useEditorContext()

@@ -1,3 +1,7 @@
+* {
+  font-family: monospace;
+}
+
 #root {
   position: fixed;
   top: 0;
