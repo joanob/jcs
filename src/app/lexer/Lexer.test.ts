@@ -48,7 +48,22 @@ describe("tokenize constants", () => {
     expect(tokens).toStrictEqual(expectedResult)
   })
 
-  test.only("tokenize constant number without type", () => {
+  test("tokenize constant and identifier", () => {
+    const code = "const a"
+
+    const expectedResult: Token[] = [
+      { tokenType: TokenTypes.CONST },
+      { tokenType: TokenTypes.IDENTIFIER, value: "a" },
+    ]
+
+    const lexer = new Lexer(code)
+
+    const tokens = lexer.tokenize()
+
+    expect(tokens).toStrictEqual(expectedResult)
+  })
+
+  test("tokenize constant, identifier, assignment and value", () => {
     const code = "const a = 5"
 
     const expectedResult: Token[] = [
@@ -62,6 +77,6 @@ describe("tokenize constants", () => {
 
     const tokens = lexer.tokenize()
 
-    expect(tokens).toBe(expectedResult)
+    expect(tokens).toStrictEqual(expectedResult)
   })
 })
