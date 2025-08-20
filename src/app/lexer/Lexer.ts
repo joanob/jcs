@@ -38,10 +38,10 @@ export class Lexer {
         value += char
         while (i < this.code.length) {
           char = this.code[i++]
-          value += char
           if (!this.isNumber(char)) {
             break
           }
+          value += char
         }
         tokens.push({ tokenType: TokenTypes.NUMBER, value })
         value = ""
@@ -66,19 +66,13 @@ export class Lexer {
       }
 
       if (char === "=") {
-        value += char
+        value = ""
         char = this.code[i++]
         if (char === "=") {
-          value += char
+          tokens.push({ tokenType: TokenTypes.EQUALS })
+        } else {
+          tokens.push({ tokenType: TokenTypes.ASSIGN })
         }
-      }
-
-      const tokenType = TokenTypeMap[value]
-
-      if (tokenType !== undefined) {
-        tokens.push({ tokenType: tokenType })
-      } else {
-        // Error
       }
 
       value = ""
