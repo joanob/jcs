@@ -45,7 +45,27 @@ export class Lexer {
         }
         tokens.push({ tokenType: TokenTypes.NUMBER, value })
         value = ""
-      } else if (char === "=") {
+        continue
+      }
+
+      if (value.length > 0) {
+        const tokenType = TokenTypeMap[value]
+
+        if (tokenType !== undefined) {
+          tokens.push({ tokenType: tokenType })
+        } else {
+          tokens.push({ tokenType: TokenTypes.IDENTIFIER, value })
+        }
+        value = ""
+      }
+
+      if (char === ":") {
+        tokens.push({ tokenType: TokenTypes.TYPE })
+        value = ""
+        continue
+      }
+
+      if (char === "=") {
         value += char
         char = this.code[i++]
         if (char === "=") {
@@ -53,18 +73,12 @@ export class Lexer {
         }
       }
 
-      if (value.length === 0) {
-        continue
-      }
-
       const tokenType = TokenTypeMap[value]
-
-      console.log(value, value.length)
 
       if (tokenType !== undefined) {
         tokens.push({ tokenType: tokenType })
       } else {
-        tokens.push({ tokenType: TokenTypes.IDENTIFIER, value })
+        // Error
       }
 
       value = ""
