@@ -120,3 +120,31 @@ describe("tokenize constants", () => {
     expect(tokens).toStrictEqual(expectedResult)
   })
 })
+
+describe("tokenize multiple lines", () => {
+  test("tokenize two constant assignments", () => {
+    const code = `
+      const a: number = 5
+      const b = 8
+    `
+
+    const expectedResult: Token[] = [
+      { tokenType: TokenTypes.CONST },
+      { tokenType: TokenTypes.IDENTIFIER, value: "a" },
+      { tokenType: TokenTypes.TYPE },
+      { tokenType: TokenTypes.IDENTIFIER, value: "number" },
+      { tokenType: TokenTypes.ASSIGN },
+      { tokenType: TokenTypes.NUMBER, value: "5" },
+      { tokenType: TokenTypes.CONST },
+      { tokenType: TokenTypes.IDENTIFIER, value: "b" },
+      { tokenType: TokenTypes.ASSIGN },
+      { tokenType: TokenTypes.NUMBER, value: "8" },
+    ]
+
+    const lexer = new Lexer(code)
+
+    const tokens = lexer.tokenize()
+
+    expect(tokens).toStrictEqual(expectedResult)
+  })
+})
