@@ -148,3 +148,31 @@ describe("tokenize multiple lines", () => {
     expect(tokens).toStrictEqual(expectedResult)
   })
 })
+
+describe("tokenize let and var", () => {
+  test("tokenize two assignments", () => {
+    const code = `
+      let a: number = 5
+      var b = 8
+    `
+
+    const expectedResult: Token[] = [
+      { tokenType: TokenTypes.LET },
+      { tokenType: TokenTypes.IDENTIFIER, value: "a" },
+      { tokenType: TokenTypes.TYPE },
+      { tokenType: TokenTypes.IDENTIFIER, value: "number" },
+      { tokenType: TokenTypes.ASSIGN },
+      { tokenType: TokenTypes.NUMBER, value: "5" },
+      { tokenType: TokenTypes.VAR },
+      { tokenType: TokenTypes.IDENTIFIER, value: "b" },
+      { tokenType: TokenTypes.ASSIGN },
+      { tokenType: TokenTypes.NUMBER, value: "8" },
+    ]
+
+    const lexer = new Lexer(code)
+
+    const tokens = lexer.tokenize()
+
+    expect(tokens).toStrictEqual(expectedResult)
+  })
+})
