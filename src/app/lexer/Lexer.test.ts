@@ -176,3 +176,122 @@ describe("tokenize let and var", () => {
     expect(tokens).toStrictEqual(expectedResult)
   })
 })
+
+describe("tokenize if and else", () => {
+  test("tokenize if without braces", () => {
+    const code = `
+      if (a == b)
+    `
+
+    const expectedResult: Token[] = [
+      { tokenType: TokenTypes.IF },
+      { tokenType: TokenTypes.LEFTPAREN },
+      { tokenType: TokenTypes.IDENTIFIER, value: "a" },
+      { tokenType: TokenTypes.EQUALS },
+      { tokenType: TokenTypes.IDENTIFIER, value: "b" },
+      { tokenType: TokenTypes.RIGHTPAREN },
+    ]
+
+    const lexer = new Lexer(code)
+
+    const tokens = lexer.tokenize()
+
+    expect(tokens).toStrictEqual(expectedResult)
+  })
+
+  test("tokenize if with braces", () => {
+    const code = `
+      if (a == b) {
+
+      }
+    `
+
+    const expectedResult: Token[] = [
+      { tokenType: TokenTypes.IF },
+      { tokenType: TokenTypes.LEFTPAREN },
+      { tokenType: TokenTypes.IDENTIFIER, value: "a" },
+      { tokenType: TokenTypes.EQUALS },
+      { tokenType: TokenTypes.IDENTIFIER, value: "b" },
+      { tokenType: TokenTypes.RIGHTPAREN },
+      { tokenType: TokenTypes.LEFTBRACE },
+      { tokenType: TokenTypes.RIGHTBRACE },
+    ]
+
+    const lexer = new Lexer(code)
+
+    const tokens = lexer.tokenize()
+
+    expect(tokens).toStrictEqual(expectedResult)
+  })
+
+  test("tokenize if with else", () => {
+    const code = `
+      if (a == b) {
+
+      } else {
+        
+      }
+    `
+
+    const expectedResult: Token[] = [
+      { tokenType: TokenTypes.IF },
+      { tokenType: TokenTypes.LEFTPAREN },
+      { tokenType: TokenTypes.IDENTIFIER, value: "a" },
+      { tokenType: TokenTypes.EQUALS },
+      { tokenType: TokenTypes.IDENTIFIER, value: "b" },
+      { tokenType: TokenTypes.RIGHTPAREN },
+      { tokenType: TokenTypes.LEFTBRACE },
+      { tokenType: TokenTypes.RIGHTBRACE },
+      { tokenType: TokenTypes.ELSE },
+      { tokenType: TokenTypes.LEFTBRACE },
+      { tokenType: TokenTypes.RIGHTBRACE },
+    ]
+
+    const lexer = new Lexer(code)
+
+    const tokens = lexer.tokenize()
+
+    expect(tokens).toStrictEqual(expectedResult)
+  })
+
+  test("tokenize if with else if and else", () => {
+    const code = `
+      if (a == b) {
+
+      } else if (a == c) {
+        
+      } else {
+        
+      }
+    `
+
+    const expectedResult: Token[] = [
+      { tokenType: TokenTypes.IF },
+      { tokenType: TokenTypes.LEFTPAREN },
+      { tokenType: TokenTypes.IDENTIFIER, value: "a" },
+      { tokenType: TokenTypes.EQUALS },
+      { tokenType: TokenTypes.IDENTIFIER, value: "b" },
+      { tokenType: TokenTypes.RIGHTPAREN },
+      { tokenType: TokenTypes.LEFTBRACE },
+      { tokenType: TokenTypes.RIGHTBRACE },
+      { tokenType: TokenTypes.ELSE },
+      { tokenType: TokenTypes.IF },
+      { tokenType: TokenTypes.LEFTPAREN },
+      { tokenType: TokenTypes.IDENTIFIER, value: "a" },
+      { tokenType: TokenTypes.EQUALS },
+      { tokenType: TokenTypes.IDENTIFIER, value: "c" },
+      { tokenType: TokenTypes.RIGHTPAREN },
+      { tokenType: TokenTypes.LEFTBRACE },
+      { tokenType: TokenTypes.RIGHTBRACE },
+      { tokenType: TokenTypes.ELSE },
+      { tokenType: TokenTypes.LEFTBRACE },
+      { tokenType: TokenTypes.RIGHTBRACE },
+    ]
+
+    const lexer = new Lexer(code)
+
+    const tokens = lexer.tokenize()
+
+    expect(tokens).toStrictEqual(expectedResult)
+  })
+})

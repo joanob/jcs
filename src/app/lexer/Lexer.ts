@@ -12,6 +12,8 @@ export class Lexer {
   private possibleIdentifierCharacters =
     this.possibleIdentifierStartCharacters + this.numberChars
 
+  private specialCharacters = ":(){}[]"
+
   constructor(code: string) {
     this.code = code
   }
@@ -59,13 +61,15 @@ export class Lexer {
         value = ""
       }
 
-      if (char === ":") {
-        tokens.push({ tokenType: TokenTypes.TYPE })
-        value = ""
-        continue
-      }
+      if (this.isSpecialChar(char)) {
+        const tokenType = TokenTypeMap[char]
 
-      if (char === "=") {
+        if (tokenType !== undefined) {
+          tokens.push({ tokenType: tokenType })
+        } else {
+          // Error
+        }
+      } else if (char === "=") {
         value = ""
         char = this.code[i++]
         if (char === "=") {
@@ -74,8 +78,6 @@ export class Lexer {
           tokens.push({ tokenType: TokenTypes.ASSIGN })
         }
       }
-
-      value = ""
     }
 
     return tokens
@@ -91,5 +93,9 @@ export class Lexer {
 
   isIdentifierChar(char: string): boolean {
     return this.possibleIdentifierCharacters.indexOf(char) >= 0
+  }
+
+  isSpecialChar(char: string): boolean {
+    return this.specialCharacters.indexOf(char) >= 0
   }
 }
